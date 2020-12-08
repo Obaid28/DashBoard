@@ -1,9 +1,10 @@
 import React , {Component} from 'react';
 import"./dashboard.css";
-import{Row,Col,Container} from 'react-bootstrap';
+import{Row,Col,container} from 'react-bootstrap';
 import WidgetText from './widgetText';
 import WidgetBar from './widgetBar';
 import WidgetDoughnut from './widgetDoughnut';
+import WidgetPie from './widgetPie';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
@@ -27,11 +28,16 @@ class DashBoard extends Component{
       organicSource: null,
       directSource: null,
       referralSource:null,
+      emailSource:null,
+      socialSource:null,
       pageViews:null,
       users:null,
       newUsers:null,
+      sessions:null,
+      userspersession:null,
       sourceArr:[],
       usersArr:[],
+      sessionsArr:[],
 
     }
   }
@@ -46,9 +52,14 @@ class DashBoard extends Component{
     let users= 0;
     let pageViews= 0;
     let newUsers= 0;
+    let emailSource= 0;
+    let socialSource= 0;
+    let sessions = 0;
+    let userspersession = 0;
     let selectedValue=null;
     let sourceArr = [];
     let usersArr= [];
+    let sessionsArr= [];
 
     for(let i=0;i<arrLen;i++){
       if(arg==arr[i]["month"]){
@@ -58,6 +69,10 @@ class DashBoard extends Component{
         pageViews=arr[i].page_views;
         users=arr[i].users;
         newUsers=arr[i].new_users;
+        emailSource=arr[i].email_source;
+        socialSource=arr[i].social_source;
+        sessions=arr[i].sessions;
+        userspersession=arr[i].number_of_sessions_per_users;
         sourceArr.push(
          {
             label: "Organic Source",
@@ -71,6 +86,14 @@ class DashBoard extends Component{
             label: "Referral Source",
             value: arr[i].referral_source
           },
+          {
+            label: "Email Source",
+            value: arr[i].email_source
+          },
+          {
+            label: "Social Source",
+            value: arr[i].social_source
+          },
         )
         usersArr.push(
           {
@@ -80,6 +103,16 @@ class DashBoard extends Component{
            {
              label: "New Users",
              value: arr[i].new_users
+           },
+         )
+         sessionsArr.push(
+          {
+             label: "Session",
+             value: arr[i].sessions
+           },
+           {
+             label: "Session Per User ",
+             value: arr[i].number_of_sessions_per_users
            },
          )
       }
@@ -94,8 +127,11 @@ class DashBoard extends Component{
       pageViews:pageViews,
       users:users,
       newUsers:newUsers,
+      emailSource:emailSource,
+      socialSource:socialSource,
       sourceArr:sourceArr,
       usersArr:usersArr,
+      sessionsArr:sessionsArr,
     } , () => {
       console.log(this.state.organicSource);
     })
@@ -150,11 +186,6 @@ class DashBoard extends Component{
   }
 
   render(){
-
-    const options = [
-      'one', 'two', 'three'
-    ];
-    const defaultOption = options[0];
  
     return(
       <div>
@@ -180,15 +211,21 @@ class DashBoard extends Component{
             <WidgetText title="Referral Source" value={this.state.referralSource} />
             </Col>
             <Col>
-            <WidgetText title="Page Views" value={this.state.pageViews} />
+            <WidgetText title="Social Source" value={this.state.socialSource} />
+            </Col>
+            <Col>
+            <WidgetText title="Email Source" value={this.state.emailSource} />
             </Col>
             </Row>
             <Row>
             <Col>
-            <WidgetBar title="Source Comaprision" data={this.state.sourceArr} />
+            <WidgetDoughnut title="Users Comaprision" data={this.state.usersArr} />
             </Col>
             <Col>
-            <WidgetDoughnut title="Users Comaprision" data={this.state.usersArr} />
+            <WidgetPie title="User and Session Comaprision" data={this.state.sessionsArr} />
+            </Col>
+            <Col>
+            <WidgetBar className="source" title="Source Comaprision" data={this.state.sourceArr} />
             </Col>
               </Row>
             </container>
