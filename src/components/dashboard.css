@@ -8,6 +8,8 @@ body{
 
 .WidgetWrap{
   background: #2a2a2a;
+  height: 182px;
+  margin-bottom: 19px;
 }
 
 .widgetTitle{
@@ -17,6 +19,7 @@ body{
   font-size:13px;
   font-weight: 600;
   padding: 10px 10px;
+  color: #b6b6e3;
 }
 
 .widgetValue .value{
@@ -36,8 +39,28 @@ body{
 .widgetValue{
   padding-top: 10px;
   padding-bottom: 10px;
+  display:flex;
+  align-items: flex-end;
+  height:143px;
+  padding-left: 7px;
+  color: yellow;
 }
 
 text{
   fill:white;
+}
+
+.Dropdown.root{
+  font-size:15px;
+  width:142px;
+  float:right;
+}
+
+.TopHeader.row{
+  background: #2a2a2a2a;
+  margin-bottom: 19px;
+  padding: 10px 15px;
+  font-size:24px;
+  text-align:left;
+  font-weight: bold;
 }
